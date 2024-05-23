@@ -39,4 +39,4 @@ const userSchema=mongoose.Schema({
 },{timestamps : true});
 
 
-exports.userModel=mongoose.model('userCollection',userSchema);
+exports.userModel=mongoose.model('userProfiles',userSchema);
