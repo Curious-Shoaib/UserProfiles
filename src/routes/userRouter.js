@@ -10,7 +10,7 @@ const HOSTNAME = process.env.HOSTNAME ||  'http://localhost:3000';
 const CLIENT_SECRET=process.env.CLIENT_SECRET || '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';
 
 
-const storage=multer.diskStorage({              // disStorage engine gives control to set destination and name of file
+const storage=multer.diskStorage({              // disk Storage engine gives control to set destination and name of file
     destination : (req,file,cb)=>{
         return cb(null,'private/photos');
     },
@@ -95,7 +95,7 @@ userRouter.route('/login')                  //grouping of same route http method
 
 // initialy, Oauth will start from here
 userRouter.get('/auth/google/login', async(req, res) => {
-    const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${HOSTNAME+'/user/auth/google/callback'}&response_type=code&scope=profile email`;
+    const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${HOSTNAME}/user/auth/google/callback&response_type=code&scope=profile email`;
     res.redirect(url);
   });
   
