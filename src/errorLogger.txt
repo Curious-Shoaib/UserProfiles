@@ -1,0 +1,10 @@
+1:55:38 AM-Profile photo URL is too lengthy,please provide within 100 characters - Error: Profile photo URL is too lengthy,please provide within 100 characters
+    at C:\Users\mohd.soyab\Desktop\finalUserProfiles\UserProfiles\src\routes\userRouter.js:29:29
+    at Layer.handle [as handle_request] (C:\Users\mohd.soyab\Desktop\finalUserProfiles\UserProfiles\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\mohd.soyab\Desktop\finalUserProfiles\UserProfiles\node_modules\express\lib\router\route.js:149:13)
+    at done (C:\Users\mohd.soyab\Desktop\finalUserProfiles\UserProfiles\node_modules\multer\lib\make-middleware.js:45:7)
+    at indicateDone (C:\Users\mohd.soyab\Desktop\finalUserProfiles\UserProfiles\node_modules\multer\lib\make-middleware.js:49:68)
+    at Multipart.<anonymous> (C:\Users\mohd.soyab\Desktop\finalUserProfiles\UserProfiles\node_modules\multer\lib\make-middleware.js:166:7)
+    at Multipart.emit (node:events:519:28)
+    at emitCloseNT (node:internal/streams/destroy:147:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)

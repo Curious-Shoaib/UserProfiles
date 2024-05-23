@@ -24,6 +24,13 @@ userRouter.route('/signup')
 .post(upload.single('profilePhoto'),async(req,res,next)=>{
     try{
 
+        if(req.body.profilePhotoURL && req.body.profilePhotoURL.length>100)
+        {
+                const error=new Error();
+                error.message='Profile photo URL is too lengthy, please provide within 100 characters';
+                error.type='custom';
+                throw error;
+        }
         if(req.file)
         {
             req.body.photoPath=`private/photos/${req.body.email}.jpg`;
@@ -156,7 +163,7 @@ userRouter.get('/auth/google/callback', async (req, res) => {
                     document.body.appendChild(newTextElement);
                     setTimeout(()=>{
                         window.location.href = responseFromMyServer.redirectUrl;
-                    }, 2000);
+                    }, 1600);
                 }
                 else
                     window.location.href = responseFromMyServer.redirectUrl;
@@ -177,7 +184,7 @@ userRouter.get('/auth/google/callback', async (req, res) => {
   
 
 
-  // from client, this api will be called by client fetch API to post user profile details 
+  // from client, this api will be called by client's fetch API to post user profile recieved from google
 userRouter.post('/auth/google/userdetails',async(req,res,next)=>{
    try{
         const userProfile=req.body;

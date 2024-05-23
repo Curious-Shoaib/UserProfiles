@@ -12,7 +12,7 @@ const userRouter=require('./routes/userRouter');
 const homeRouter=require('./routes/homeRouter');
 var upload = multer({ dest: 'private' });
 const {authenticate : checkAuthentication,preLoginAuth,restrictTo}=require('./middleware/userAuthentication');
-const mongoLocalURL='mongodb://localhost:27017/SignupLoginAssignment';
+const mongoLocalURL='mongodb://localhost:27017/userProfilesDB';
 app.set("view engine","ejs");
 app.set("views",resolve(join(__dirname,"/views")));        // set the src/views folder as default to resolve view path
 

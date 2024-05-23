@@ -9,7 +9,7 @@ const {join}=require('path');
 //const multerr = require('../private/temp');
 
 
-const storageTemp = multer.diskStorage({              // diskStorage engine gives control to set destination and name of file
+const storage = multer.diskStorage({              // diskStorage engine gives control to set destination and name of file
     destination: (req, file, cb) => {
         return cb(null, join(__dirname,'../private/temp'));
     },
@@ -17,19 +17,7 @@ const storageTemp = multer.diskStorage({              // diskStorage engine give
         return cb(null, `${req.user.email}.jpg`);
     }
 });
-const uploadTemp = multer({ storage: storageTemp }); // telling multer that we are using storage engine
-
-
-const storage = multer.diskStorage({   
-    destination: (req, file, cb) => {
-        return cb(null, join(__dirname,'../private/photos'));
-    },
-    filename: (req, file, cb) => {
-        return cb(null, `${req.user.email}.jpg`);
-    }
-});
-const uploadActual = multer({ storage: storage });
-
+const upload = multer({ storage: storage }); // telling multer that we are using storage engine
 
 
 //this is home page endpoint
@@ -53,7 +41,7 @@ userRouter.get('/users', async (req, res, next) => {
 
 
 // this endpoint handles user update requests from homepage edit section
-userRouter.post('/',uploadTemp.single('profilePhoto') ,async (req, res, next) => {
+userRouter.post('/',upload.single('profilePhoto') ,async (req, res, next) => {
     try {
         const myProfile = req.user;
         const directoryEntriesArray = await fs.readdir(join(__dirname,'../private/photos'));
@@ -65,6 +53,14 @@ userRouter.post('/',uploadTemp.single('profilePhoto') ,async (req, res, next) =>
                 error.myProfile=myProfile;
                 throw error;
             }
+        if(req.body.profilePhotoURL && req.body.profilePhotoURL.length>100)
+        {
+            const errorData = { message: 'Profile photo URL is too lengthy,please provide within 100 characters' };
+            const error=new Error();
+                error.errorData=errorData;
+                error.myProfile=myProfile;
+                throw error;
+        }
         if (req.body.email) {
             if (req.user.email == req.body.email) {
                 const errorData = { message: 'New email Id and current email Id should be different, retry' };
@@ -103,8 +99,6 @@ userRouter.post('/',uploadTemp.single('profilePhoto') ,async (req, res, next) =>
                 error.errorData=errorData;
                 error.myProfile=myProfile;
                 throw error;
-                // res.render('homePage', { myProfile, errorData });
-                // return;
             }
             updateUserOb.email = req.body.email;
         }
@@ -117,8 +111,7 @@ userRouter.post('/',uploadTemp.single('profilePhoto') ,async (req, res, next) =>
                 error.errorData=errorData;
                 error.myProfile=myProfile;
                 throw error;
-                // res.render('homePage', { myProfile, errorData });
-                // return;
+
             }
             updateUserOb.phone = req.body.phone;
         }
