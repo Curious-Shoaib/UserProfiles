@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('header') %>
+<body>
+    <%- include('navbar') %>
+    <!-- <h2>Welcome to Home page</h2> -->
+    <br>
+    <% if (locals.err) { %>
+        <h3 style="color: red;"><%= err.message %></h3>
+    <% } %>
+    <% if (locals.myProfile) { %>
+        <div class="d-flex justify-content-center">
+            <div class="d-flex" style="flex-direction: column;align-items: center;background: rgb(224, 228, 227);
+                width: max-content;" >
+                <div class="d-flex flex-wrap justify-content-center" >
+                    <div class="d-flex justify-content-center align-items-baseline p-lg-5 p-md-5 p-3">
+                        <img class="img-thumbnail profile-img" alt="Profile image" src=<%= myProfile.photoPath%> style="width:100%; max-width: 15em;"/>
+                    </div>
+                    <div class="p-lg-5 p-md-5 p-3" style="font-size: 1.5em;">
+                        <h2><%= ` ${myProfile.firstName} ${myProfile.lastName}` %></h2>
+                        <dl>
+                            
+                            <div class="d-flex flex-wrap">
+                                <dt>Email&nbsp;&nbsp;</dt><dd><%= ` ${myProfile.email}` %></dd>
+                            </div>
+
+                            <% if (myProfile.phone) { %>
+                                <div class="d-flex flex-wrap">
+                                    <dt>Phone:&nbsp;&nbsp;</dt><dd><%= ` ${myProfile.phone}` %></dd>
+                                </div>
+                            <% } %>
+
+                            <div class="d-flex flex-wrap">
+                                <dt>Status:&nbsp;&nbsp;</dt><dd><%= ` ${myProfile.status}` %></dd>
+                            </div>
+                        </dl>
+                        <button id="edit-form" class="btn btn-primary">Edit</button>
+                    </div>
+                </div>
+            
+                <div id="my-form" class="my-collapsed" style="padding-bottom: 2em; width:85%;">
+                    <form name="updateForm" id="updateForm" action="/" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                        <label for="FirstNameInput">First name</label>
+                        <input type="text" name="firstName" class="form-control" id="FirstNameInput" aria-describedby="emailHelp" placeholder="John">
+                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                        </div>
+                        <div class="form-group">
+                            <label for="lastNameInput">Last name</label>
+                            <input type="text" name="lastName" class="form-control" id="lastNameInput" aria-describedby="emailHelp" placeholder="Snow">
+                            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                            </div>
+
+                        <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="email@example.com">
+                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phoneInput">Phone</label>
+                            <input type="text" name="phone" class="form-control" id="phoneInput" aria-describedby="emailHelp" placeholder="+1 1234567890">
+                            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                        </div>
+                        <div class="form-group">
+                            <label for="password">password</label>
+                            <input type="password" name="password" class="form-control" id="password" aria-describedby="emailHelp">
+                            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                        </div>
+
+                        <div class="form-group">
+                            <label for="statusselect">Status</label>
+                            <select  id="statusselect" name ="status" class="form-control">
+                                <option value="Public">Public</option>
+                                <option value="Private">Private</option>
+                            </select>
+                            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <input type="radio" checked name="profileType" id="upload"><label>upload photo</label>
+                            <input type="radio" name="profileType" id="urlRadio"><label>provide URL</label><br/>
+                            <div style="display:inline-block;background-color: white; width: fit-content;">
+                                <input type="file" id="file" name="profilePhoto">
+                                <input type="text" hidden id="URL" name="profilePhotoURL" placeholder="https://example.com">
+                              </div><br/><br/>
+                        </div>
+                        <button type="submit" id="submitButton" class="btn btn-primary mt-2">Save</button>
+                    </form>
+                </div>
+
+                <script>
+                    let editButton = document.getElementById('edit-form');
+                    let myForm = document.getElementById('my-form');
+                    editButton.addEventListener('click', () => {
+                        if (editButton.innerText == 'Edit') {
+                            editButton.innerText = 'Close';
+                            myForm.classList.remove('my-collapsed');
+                            myForm.classList.add('my-expanded');
+                        } else {
+                            editButton.innerText = 'Edit';
+                            myForm.classList.remove('my-expanded');
+                            myForm.classList.add('my-collapsed');
+                        }
+                    });
+
+                    // const form=document.getElementById('updateForm');
+                    // submitButton.addEventListener('click' , (e)=>{
+
+                    // });
+
+                    const uploadRadio=document.getElementById('upload');
+                    const urlRadio=document.getElementById('urlRadio');
+                    const file=document.getElementById('file');
+                    const URL=document.getElementById('URL');
+                    const handler=(e)=>{
+                        if(uploadRadio.checked)
+                        {
+                        file.hidden=false;
+                        URL.hidden=true;
+                        }
+                        else
+                        {
+                        file.hidden=true;
+                        URL.hidden=false;
+                        }
+                    }
+                    uploadRadio.addEventListener('click',handler);
+                    urlRadio.addEventListener('click',handler);
+                </script>
+            
+            </div>
+        </div>
+    <% } %>
+    <% if (locals.successfullUpdate) { %>
+        <div class="d-flex justify-content-center">
+           <p> <%=`${successfullUpdate.message}` %> </p>
+           <script>
+              setTimeout(() => {
+                document.cookie.split(';').forEach(function(c) {
+                document.cookie = c.trim().split('=')[0] + '=;' + 'expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+                });
+                window.location.reload();
+                }, 2000);
+           </script>
+        </div>
+        <% } %>
+        <% if (locals.errorData) { %>
+            <div class="d-flex justify-content-center">
+               <p> <%=`${errorData.message}` %> </p>
+            </div>
+            <% } %>
+
+</body>
+<script>
+</script>
+</html>

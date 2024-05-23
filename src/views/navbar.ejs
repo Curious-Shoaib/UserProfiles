@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(72, 72, 106);">
+    <a class="navbar-brand" href="#">User Profiles</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: space-between;"> 
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users">Other users</a>
+        </li>
+      </ul>
+      <button id="logout" name="logout" type="button" class="btn btn-outline-danger" style="float: right; ">Log out</button>
+    </div>
+  </nav>
+  <Script>                                                // this script is used when user hit log out, it wipes out cookies
+    const btn=document.getElementById('logout');
+    btn.addEventListener('click',()=>{
+        
+        // these two lines clear the cookie from browser for current hostname
+        document.cookie.split(';').forEach(function(c) {
+        document.cookie = c.trim().split('=')[0] + '=;' + 'expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+        });
+        // once cookie for this page is deleted, page will refresh so that new request will go to server,
+        // once server does not found cookie, it will send login page
+        window.location.reload();
+    })
+</script>

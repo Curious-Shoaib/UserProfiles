@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('header') %>
+<body>
+    <%- include('navbar') %>
+    
+    <% if (locals.profiles && locals.profiles.length != 0) {%> 
+        <div class="d-flex flex-wrap justify-content-evenly row-gap-4" style="margin-top:1em">
+            <% profiles.forEach(profile=>{%>
+    
+                <div class="p-2 d-flex flex-wrap justify-content-center flex-nowrap" style="background-color: <%= profile.status == 'Private' ? '#e0b0b0' : '#cbead9' %>; width:24%;   border: 1px solid #00000033;
+                border-radius: 0.5em;">
+                    <div class="d-flex justify-content-center align-items-baseline p-1">
+                        <img class="img-thumbnail profile-img" alt="Profile image" src= <%= profile.photoPath%>  style="width:100%; max-width: 8em;margin-right:1em"/>
+                    </div>
+                    <div class="p-1">
+                        <h4><%= `${profile.firstName} ${profile.lastName}` %></h2>
+                        <dl style="font-size: 0.85em;">
+                            
+                            <div class="d-flex flex-wrap">
+                                <dt>Email&nbsp;&nbsp;</dt><dd><%= ` ${profile.email}` %></dd>
+                            </div>
+                            <% if (profile.phone) { %>
+                                <div class="d-flex flex-wrap">
+                                    <dt>Phone:&nbsp;&nbsp;</dt><dd><%= ` ${profile.phone}` %></dd>
+                                </div>
+                            <% } %>
+                            <div class="d-flex flex-wrap">
+                                <dt>Status:&nbsp;&nbsp;</dt><dd><%= ` ${profile.status}` %></dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            
+
+
+
+            <%}) %>
+        </div>
+        <%} %>
+        <% if (!locals.profiles || locals.profiles.length==0 ) { %>
+         
+            <p> No profiles in database</p>
+        <% } %>
+</body>
+
+
+</html>

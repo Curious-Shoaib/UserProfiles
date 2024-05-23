@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <style>
+          form,p{
+    text-align: center;
+    margin: 10px;
+  }
+    </style>
+</head>
+<body style="background-color: rgb(198, 247, 212);">
+<h1 style="text-align: center;">Welcome to UserProfiles.</h1> <br>
+<% if (locals.err) { %>
+    <h3 style= "text-align: center; color: rgba(255, 0, 0, 0.838);"><%= err.message %></h3>
+<% } %>
+<% if (!locals.err) { %>
+    <h3 style="text-align: center;">Please Log in to continue.</h3>
+<% } %>
+<div class="login">
+    <form id="login" action="/user/login" method="post">
+
+     <label for="email"><b>Email</b></label><br>
+        <input type="text" name="email" id="Uname" class="col-form-label col-form-label-sm" placeholder="example.demo@gmail.com" required>
+        <br><br>
+        <label for="password"><b>Enter password</b></label><br>
+        <input type="password" name="password" id="Pass" class="col-form-label col-form-label-sm" placeholder="enter password" required>
+        <br><br>
+        <button name="log" id="log" class="btn btn-success">Log in here</button>
+    </form>
+    <p><a href="/user/auth/google/login">Sign in</a> with google</p>
+</div>
+<p>Not registered? Register <a href="/user/signup">here. </a> </p>
+</body>
+</html>
+
+<!-- /auth/google/login -->

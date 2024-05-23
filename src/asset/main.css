@@ -1,0 +1,24 @@
+.my-box{
+    display: inline-block;
+    padding: 1em;
+    margin: 1em;
+    border-radius: 0.5em;
+    border: 1px solid #00000030 ;
+    background-color: aliceblue;
+}
+#my-form {
+overflow: hidden;
+transition: 0.25s all linear;
+}
+.my-collapsed {
+height: 0 !important;
+overflow: hidden;
+visibility: hidden;
+}
+.my-expanded {
+height : 35em;
+}
+
+body{
+    color:black; background-color:#e8e8e8 ;
+}
