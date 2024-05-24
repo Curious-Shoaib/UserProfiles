@@ -1,12 +1,12 @@
 PS :  live link :  https://userprofiles-czh6.onrender.com/           
-( it may take 20 sec to load first time )
-This is complete application for following functionality.
+( it may take 20 sec to load first time ) <br>
+This is complete application for following functionality. <br>
 1. user can register by native method and by using Google account.
 2. user can sign in by email and password and by google account.
    please explore the app to see all functionality.
 
    ___________________________________________________________________________________
-   **************  IMPORTANT    ************
+   **************  IMPORTANT    ************  <br>
    please set these environment variables while running.
 
    1. CLIENT_ID        --     given by google developer console
