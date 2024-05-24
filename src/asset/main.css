@@ -22,3 +22,26 @@ height : 35em;
 body{
     color:black; background-color:#e8e8e8 ;
 }
+
+.other-user-card {
+    width: 24%;
+}
+
+@media screen and (max-width : 950px) {
+    .other-user-card {
+        width: 32%;
+    }
+}
+
+
+@media screen and (max-width : 600px) {
+    .other-user-card {
+        width: 49%;
+    }
+}
+
+@media screen and (max-width : 450px) {
+    .other-user-card {
+        width: 98%;
+    }
+}
